@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prt-gist-analytics-dashboard
+  namespace: prorata-apps
+  labels:
+    app: prt-gist-analytics-dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prt-gist-analytics-dashboard
+  template:
+    metadata:
+      labels:
+        app: prt-gist-analytics-dashboard
+        azure.workload.identity/use: "true"
+    spec:
+      serviceAccountName: workload-identity-sa
+      tolerations:
+      - key: "prorata-apps"
+        operator: "Equal"
+        value: "prorata"
+        effect: "NoSchedule"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "prorata"
+                operator: "In"
+                values:
+                - "apps"
+      containers:
+        - name: prt-gist-analytics-dashboard
+          image: prtdevelopmentacr.azurecr.io/prt-gist-analytics-dashboard:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8501
+          resources:
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"
+            requests:
+              cpu: "1000m"
+              memory: "1Gi"
+          envFrom:
+            - configMapRef:
+                name: prt-gist-analytics-dashboard-configmap
+          env:
+            - name: MONGODB_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: gist-analytics-keyvault-secrets
+                  key: MONGODB-CONNECTION-STRING
+            - name: CLICKHOUSE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: gist-analytics-keyvault-secrets
+                  key: CLICKHOUSE-USER
+            - name: CLICKHOUSE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gist-analytics-keyvault-secrets
+                  key: CLICKHOUSE-PASSWORD
+            - name: KEYCLOAK_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: gist-analytics-keyvault-secrets
+                  key: KEYCLOAK-GIST-CLIENT-SECRET
+          volumeMounts:
+            - name: secrets-store
+              mountPath: "/mnt/secrets-store"
+              readOnly: true
+      volumes:
+        - name: secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: apps-keyvault-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prt-gist-analytics-dashboard
+  namespace: prorata-apps
+spec:
+  selector:
+    app: prt-gist-analytics-dashboard
+  ports:
+    - protocol: TCP
+      port: 8501
+      targetPort: 8501
+  type: ClusterIP
