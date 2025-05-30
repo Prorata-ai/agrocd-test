@@ -27,7 +27,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
+  name: tom-service
   namespace: default
 spec:
   type: ClusterIP
