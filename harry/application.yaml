@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: testing-app
+  name: harry-app
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/Prorata-ai/agrocd-test.git
     targetRevision: HEAD
-    path: .  # Use relative path instead of absolute path
+    path: /harry  # Use relative path instead of absolute path
   destination:
     server: https://supervisors-3hfs9ocb.hcp.eastus.azmk8s.io:443
     namespace: default
