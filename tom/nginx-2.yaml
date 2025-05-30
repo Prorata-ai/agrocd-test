@@ -8,8 +8,9 @@ metadata:
     argocd.argoproj.io/compare-options: IgnoreExtraneous
     argocd.argoproj.io/sync-options: Prune=false
     argocd.argoproj.io/managed: "false"
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: nginx
