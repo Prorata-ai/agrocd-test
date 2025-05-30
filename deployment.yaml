@@ -6,7 +6,7 @@ metadata:
   labels:
     app: prt-gist-analytics-dashboard
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: prt-gist-analytics-dashboard
