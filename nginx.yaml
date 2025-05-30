@@ -4,6 +4,9 @@ kind: Deployment
 metadata:
   name: nginx-deployment
   namespace: default
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-options: Prune=false
 spec:
   replicas: 3
   selector:
