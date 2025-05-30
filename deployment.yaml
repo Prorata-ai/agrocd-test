@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: prt-gist-analytics-dashboard
   namespace: prorata-apps
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-options: Prune=false
   labels:
     app: prt-gist-analytics-dashboard
 spec:
