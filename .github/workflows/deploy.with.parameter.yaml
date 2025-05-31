@@ -89,7 +89,8 @@ jobs:
         run: |
           cd james/
           echo "VERSION_TAG=${{ needs.build-and-push.outputs.VERSION_TAG }}" >> "$GITHUB_ENV"
-          sed -i "s|image:.*|image: prtdevelopmentacr.azurecr.io/test-gist-analytics-dashboard:${VERSION_TAG}|" deployment.yaml
+          echo "VERSION_TAG=${{ needs.build-and-push.outputs.VERSION_TAG }}" >> "$GITHUB_ENV"
+          sed -i "s|image:.*|image: prtdevelopmentacr.azurecr.io/test-gist-analytics-dashboard:${{ env.VERSION_TAG }}|" deployment.yaml
           git add deployment.yaml
           git commit -m "Replace text in deployment.yaml"
           git remote add target https://x-access-token:${{ env.GH_PR_READ_TOKEN }}@github.com/Prorata-ai/agrocd-test.git
