@@ -92,7 +92,7 @@ jobs:
         id: docker_build
         env:
           VERSION_TAG: "${{ vars.IMAGE_VERSION }}-${{ env.branch }}-${{ env.sha_short }}"
-          GH_PR_READ_TOKEN: ${{ secrets.GH_PR_READ_TOKEN }}
+          # GH_PR_READ_TOKEN: ${{ secrets.GH_PR_READ_TOKEN }}
         run: |
           docker compose -f docker-compose.yaml build 
           docker tag ${{ vars.IMAGE_NAME }} "${{ vars.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:${{ env.VERSION_TAG }}"
