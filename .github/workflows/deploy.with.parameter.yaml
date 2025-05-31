@@ -67,7 +67,7 @@ jobs:
           VERSION_TAG: "${{ vars.IMAGE_VERSION }}-${{ env.branch }}-${{ env.sha_short }}"
           # GH_PR_READ_TOKEN: ${{ secrets.GH_PR_READ_TOKEN }}
         run: |
-          cd james/devops
+          cd james
           echo "VERSION_TAG value is: $VERSION_TAG"
           docker compose -f docker-compose.yaml build 
           docker tag ${{ vars.IMAGE_NAME }} "${{ vars.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:${{ env.VERSION_TAG }}"
@@ -92,8 +92,8 @@ jobs:
           cd james/
           echo "VERSION_TAG=${{ needs.build-and-push.outputs.VERSION_TAG }}" >> "$GITHUB_ENV"
           echo "VERSION_TAG value is: $VERSION_TAG"
-          sed -i "s|image:.*|image: prtdevelopmentacr.azurecr.io/test-gist-analytics-dashboard:${{ env.VERSION_TAG}}|" deployment.yaml
-          git add deployment.yaml
+          sed -i "s|image:.*|image: prtdevelopmentacr.azurecr.io/test-gist-analytics-dashboard:${{ env.VERSION_TAG}}|" devops/deployment.yaml
+          git add devops/deployment.yaml
           git commit -m "Replace text in deployment.yaml"
           git remote add target https://x-access-token:${{ env.GH_PR_READ_TOKEN }}@github.com/Prorata-ai/agrocd-test.git
           git push target main

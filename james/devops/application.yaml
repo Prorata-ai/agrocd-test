@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/Prorata-ai/agrocd-test.git
     targetRevision: HEAD
-    path: james  # Use relative path instead of absolute path
+    path: james/devops  # Use relative path instead of absolute path
   destination:
     server: https://supervisors-3hfs9ocb.hcp.eastus.azmk8s.io:443
     namespace: default
