@@ -8,8 +8,8 @@ on:
         required: true
         type: choice
         options:
+          - Build image only        
           - Build and Deploy/Restart
-          - Build image only
           - Deploy Configmap/Restart
       environment:
         description: 'Environment to deploy to'
@@ -95,7 +95,7 @@ jobs:
           GH_PR_READ_TOKEN: ${{ secrets.GH_PR_READ_TOKEN }}
         run: |
           cd james/
-          sed -i '' 's|image:.*|image: prtdevelopmentacr.azurecr.io/test-gist-analytics-dashboard:${{ env.VERSION_TAG }}|' ./james/deployment.yaml
+          sed -i '' 's|image:.*|image: prtdevelopmentacr.azurecr.io/test-gist-analytics-dashboard:${{ env.VERSION_TAG }}|' james/deployment.yaml
           git add deployment.yaml
           git commit -m "Replace text in deployment.yaml"
           git remote add target https://x-access-token:${{ env.GH_PR_READ_TOKEN }}@github.com/Prorata-ai/agrocd-test.git
