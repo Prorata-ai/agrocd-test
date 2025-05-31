@@ -96,4 +96,5 @@ jobs:
           sed -i 's/latest/v1.0-main-1ece4ec/' deployment.yaml
           git add deployment.yaml
           git commit -m "Replace text in deployment.yaml"
+          git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push
