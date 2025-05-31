@@ -87,14 +87,17 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --global user.name 'Prashant Parashar'
+          git config --global user.name 'Prashant'
           git config --global user.email 'prashant@prorata.ai'
 
       - name: Replace text in deployment.yaml
+        env:
+          GH_PR_READ_TOKEN: ${{ secrets.GH_PR_READ_TOKEN }}
         run: |
           cd james/
           sed -i 's/latest/v1.0-main-1ece4ec/' deployment.yaml
           git add deployment.yaml
           git commit -m "Replace text in deployment.yaml"
-          git remote set-url origin https://x-access-token:${{ secrets.SECRET_PAT_READ_REPO }}@github.com/${{ github.repository }}
-          git push
+          git remote add target https://x-access-token:${{ env.GH_PR_READ_TOKEN }}@github.com/Prorata-ai/agrocd-test.git
+          git push target main
+
