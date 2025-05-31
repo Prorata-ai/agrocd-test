@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: test-gist-analytics-dashboard
-  namespace: prorata-apps
+  namespace: default
   labels:
     app: test-gist-analytics-dashboard
 spec:
