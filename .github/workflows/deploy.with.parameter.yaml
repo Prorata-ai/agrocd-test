@@ -88,6 +88,7 @@ jobs:
           GH_PR_READ_TOKEN: ${{ secrets.GH_PR_READ_TOKEN }}
         run: |
           cd james/
+          echo "VERSION_TAG=${{ needs.build-and-push.outputs.VERSION_TAG }}" >> "$GITHUB_ENV"
           sed -i 's/image:.*/image: prtdevelopmentacr.azurecr.io\/test-gist-analytics-dashboard:new-version/' deployment.yaml
           git add deployment.yaml
           git commit -m "Replace text in deployment.yaml"
