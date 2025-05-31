@@ -83,7 +83,7 @@ jobs:
   deploy:
  
     if: ${{ always() && github.event.inputs.action == 'Build and Deploy/Restart' || always() && github.event.inputs.action == 'Deploy Configmap/Restart' }}
-    needs: [check-devops-membership,build-and-push]
+
     runs-on: ubuntu-latest
     environment: ${{ (github.event.inputs.environment == 'Development' && 'Development-Environment') || 
                      (github.event.inputs.environment == 'Lab Environment' && 'Lab-Environment') || 
