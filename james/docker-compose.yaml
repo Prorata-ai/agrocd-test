@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  gist-analytics-dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: prt-gist-analytics-dashboard
+    container_name: prt-gist-analytics-dashboard
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+      - CLICKHOUSE_DATABASE=gist_analytics
+      - CLICKHOUSE_URL=clickhouse://host.docker.internal:9001
+      - CLICKHOUSE_USERNAME=${CLICKHOUSE_USERNAME}
+      - CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}
+      - KEYCLOAK_REALM=prorata
+      - KEYCLOAK_CLIENT_ID=gistdash
+      - KEYCLOAK_SERVER_URL=https://auth.development.prorata.ai
+      - KEYCLOAK_REDIRECT_URI=http://localhost:8501
+      - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
+    volumes:
+      - ./:/app
+    ports:
+      - "8501:8501"
+
