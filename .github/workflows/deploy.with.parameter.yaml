@@ -40,11 +40,7 @@ jobs:
         run: |
           echo "Deploying to Production but user is not a member of DevOps team"
           exit 1  
-      - name: Setup
-        shell: bash
-        run: |
-          echo "Deploying to ${{ github.event.inputs.environment }}"
-          cd james/
+
 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -71,6 +67,7 @@ jobs:
           VERSION_TAG: "${{ vars.IMAGE_VERSION }}-${{ env.branch }}-${{ env.sha_short }}"
           # GH_PR_READ_TOKEN: ${{ secrets.GH_PR_READ_TOKEN }}
         run: |
+          cd james/
           docker compose -f docker-compose.yaml build 
           docker tag ${{ vars.IMAGE_NAME }} "${{ vars.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:${{ env.VERSION_TAG }}"
           docker tag ${{ vars.IMAGE_NAME }} ${{ vars.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:latest
