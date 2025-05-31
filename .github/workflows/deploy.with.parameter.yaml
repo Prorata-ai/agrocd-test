@@ -78,15 +78,6 @@ jobs:
           # BUILD OUTPUT
           echo "VERSION_TAG=${{ env.VERSION_TAG }}" >> $GITHUB_OUTPUT
 
-  commit:
-    outputs:
-      VERSION_TAG: ${{ steps.docker_build.outputs.VERSION_TAG }}
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
       - name: Configure Git
         run: |
           git config --global user.name 'Prashant'
@@ -102,4 +93,29 @@ jobs:
           git commit -m "Replace text in deployment.yaml"
           git remote add target https://x-access-token:${{ env.GH_PR_READ_TOKEN }}@github.com/Prorata-ai/agrocd-test.git
           git push target main
+
+  # commit:
+    # outputs:
+    #   VERSION_TAG: ${{ steps.docker_build.outputs.VERSION_TAG }}
+    # needs: build-and-push
+    # runs-on: ubuntu-latest
+    # steps:
+    #   - name: Checkout repository
+    #     uses: actions/checkout@v2
+
+    #   - name: Configure Git
+    #     run: |
+    #       git config --global user.name 'Prashant'
+    #       git config --global user.email 'prashant@prorata.ai'
+
+    #   - name: Replace text in deployment.yaml
+    #     env:
+    #       GH_PR_READ_TOKEN: ${{ secrets.GH_PR_READ_TOKEN }}
+    #     run: |
+    #       cd james/
+    #       sed -i 's/image:.*/image: prtdevelopmentacr.azurecr.io\/test-gist-analytics-dashboard:${{ env.VERSION_TAG }}/' deployment.yaml
+    #       git add deployment.yaml
+    #       git commit -m "Replace text in deployment.yaml"
+    #       git remote add target https://x-access-token:${{ env.GH_PR_READ_TOKEN }}@github.com/Prorata-ai/agrocd-test.git
+    #       git push target main
 
