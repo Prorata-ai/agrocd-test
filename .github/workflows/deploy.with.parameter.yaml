@@ -58,6 +58,7 @@ jobs:
                      (github.event.inputs.environment == 'Staging' && 'Staging-Environment') }}
 
     steps:
+      cd james/
       - name: Exit if Deploying to Production but user is not a member of DevOps team
         if: github.event.inputs.environment == 'Production' && needs.check-devops-membership.outputs.is_devops_member == 'false'
         run: |
