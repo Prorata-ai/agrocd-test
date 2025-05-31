@@ -79,6 +79,8 @@ jobs:
           echo "VERSION_TAG=${{ env.VERSION_TAG }}" >> $GITHUB_OUTPUT
 
   commit:
+    outputs:
+      VERSION_TAG: ${{ steps.docker_build.outputs.VERSION_TAG }}
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
