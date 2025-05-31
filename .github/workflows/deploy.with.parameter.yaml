@@ -77,3 +77,23 @@ jobs:
 
           # BUILD OUTPUT
           echo "VERSION_TAG=${{ env.VERSION_TAG }}" >> $GITHUB_OUTPUT
+
+  commit:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'github-actions@github.com'
+
+      - name: Replace text in deployment.yaml
+        run: |
+          cd james/
+          sed -i 's/latest/v1.0-main-1ece4ec/' deployment.yaml
+          git add deployment.yaml
+          git commit -m "Replace text in deployment.yaml"
+          git push
