@@ -19,7 +19,7 @@ spec:
 
       containers:
         - name: test-gist-analytics-dashboard
-          image: prtdevelopmentacr.azurecr.io/test-gist-analytics-dashboard:v1.0-main-dfb0b54
+          image: prtdevelopmentacr.azurecr.io/test-gist-analytics-dashboard:v1.0-main-83c9e62
           imagePullPolicy: Always
           command: ["/bin/sh"]
           args: ["-c", "sleep infinity"]
