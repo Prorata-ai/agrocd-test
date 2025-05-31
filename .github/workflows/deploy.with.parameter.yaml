@@ -21,29 +21,29 @@ on:
           - Staging
           - Production
 jobs:
-  check-devops-membership:
-    runs-on: ubuntu-latest
-    outputs:
-      is_devops_member: ${{ steps.check.outputs.is_devops_member }}
-    steps:
-      - name: Check user for team affiliation
-        uses: tspascoal/get-user-teams-membership@v3
-        id: teamAffiliation
-        with:
-          GITHUB_TOKEN: ${{ secrets.PAT_READ_ORG }}
-          username: ${{ github.actor }}
-          team: 'DevOps'
+  # check-devops-membership:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     is_devops_member: ${{ steps.check.outputs.is_devops_member }}
+  #   steps:
+  #     - name: Check user for team affiliation
+  #       uses: tspascoal/get-user-teams-membership@v3
+  #       id: teamAffiliation
+  #       with:
+  #         GITHUB_TOKEN: ${{ secrets.PAT_READ_ORG }}
+  #         username: ${{ github.actor }}
+  #         team: 'DevOps'
 
-      - name: Set DevOps membership status
-        id: check
-        run: |
-          if [ "${{ steps.teamAffiliation.outputs.isTeamMember }}" == "true" ]; then
-            echo "User is a member of DevOps team"
-            echo "is_devops_member=true" >> $GITHUB_OUTPUT
-          else
-            echo "User is not a member of DevOps team"
-            echo "is_devops_member=false" >> $GITHUB_OUTPUT
-          fi
+  #     - name: Set DevOps membership status
+  #       id: check
+  #       run: |
+  #         if [ "${{ steps.teamAffiliation.outputs.isTeamMember }}" == "true" ]; then
+  #           echo "User is a member of DevOps team"
+  #           echo "is_devops_member=true" >> $GITHUB_OUTPUT
+  #         else
+  #           echo "User is not a member of DevOps team"
+  #           echo "is_devops_member=false" >> $GITHUB_OUTPUT
+  #         fi
   build-and-push:
     needs: [check-devops-membership]
     outputs:
