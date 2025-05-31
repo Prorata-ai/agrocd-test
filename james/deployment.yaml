@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-gist-analytics-dashboard
+  namespace: prorata-apps
+  labels:
+    app: test-gist-analytics-dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-gist-analytics-dashboard
+  template:
+    metadata:
+      labels:
+        app: test-gist-analytics-dashboard
+
+    spec:
+
+      containers:
+        - name: test-gist-analytics-dashboard
+          image: prtdevelopmentacr.azurecr.io/test-gist-analytics-dashboard:latest
+          imagePullPolicy: Always
+          command: ["/bin/sh"]
+          args: ["-c", "sleep infinity"]
+          ports:
+            - containerPort: 8501
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+
+
+
