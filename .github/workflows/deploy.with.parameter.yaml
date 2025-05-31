@@ -68,6 +68,7 @@ jobs:
           # GH_PR_READ_TOKEN: ${{ secrets.GH_PR_READ_TOKEN }}
         run: |
           cd james/
+          echo "VERSION_TAG value is: $VERSION_TAG"
           docker compose -f docker-compose.yaml build 
           docker tag ${{ vars.IMAGE_NAME }} "${{ vars.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:${{ env.VERSION_TAG }}"
           docker tag ${{ vars.IMAGE_NAME }} ${{ vars.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:latest
