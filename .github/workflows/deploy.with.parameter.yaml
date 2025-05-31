@@ -85,10 +85,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Configure Git
-        run: |
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'github-actions@github.com'
+      # - name: Configure Git
+      #   run: |
+      #     git config --global user.name 'GitHub Actions'
+      #     git config --global user.email 'github-actions@github.com'
 
       - name: Replace text in deployment.yaml
         run: |
