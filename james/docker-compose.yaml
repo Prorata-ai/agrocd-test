@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: prt-gist-analytics-dashboard
-    container_name: prt-gist-analytics-dashboard
+    image: test-gist-analytics-dashboard
+    container_name: test-gist-analytics-dashboard
     environment:
       - PYTHONPATH=/app
       - PYTHONUNBUFFERED=1
