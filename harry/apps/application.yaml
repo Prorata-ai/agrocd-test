@@ -8,23 +8,7 @@ spec:
   source:
     repoURL: https://github.com/Prorata-ai/agrocd-test.git
     targetRevision: HEAD
-    paths:
-      - harry
-      # Add more paths here as needed
-      # - another-path
-      # - yet-another-path
-    directories:
-      include:
-        - harry/apps
-        - harry/services
-      exclude:
-        - harry/temp
-        - harry/logs
-        - harry/test
-    exclude:
-      - harry/temp/*  # Exclude all files in temp directory
-      - harry/*.log   # Exclude all log files
-      - harry/config/*.yaml  # Exclude specific config files
+    path: harry/apps
   destination:
     server: https://supervisors-3hfs9ocb.hcp.eastus.azmk8s.io:443
     namespace: default
