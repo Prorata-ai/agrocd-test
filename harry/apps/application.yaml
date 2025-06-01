@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Prorata-ai/agrocd-test.git
-    targetRevision: HEAD
+    targetRevision: main
     path: harry/apps
   destination:
     server: https://supervisors-3hfs9ocb.hcp.eastus.azmk8s.io:443
