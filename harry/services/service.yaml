@@ -1,21 +1,12 @@
-# Blue service definition targets the current production version
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service-blue
+  name: harry-service
+  namespace: default
 spec:
+  type: ClusterIP
   selector:
-    version: blue
-
----
-# Green service definition targets the new version ready for production
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service-green
-spec:
-  selector:
-    version: green
-
-
-#  kubectl patch svc my-service -p '{"spec":{"selector":{"version":"green"}}}'
+    app: nginx
+  ports:
+    - name: http
+      port: 80
