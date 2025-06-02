@@ -4,12 +4,13 @@ metadata:
   name: tom-app
   namespace: argocd
 spec:
-  project: default
+  project: apple
   source:
     repoURL: https://github.com/Prorata-ai/agrocd-test.git
     targetRevision: HEAD
     path: tom  # Use relative path instead of absolute path
   destination:
+    name: PrtDevelopmentMiddleware  # Name of the target cluster registered in Argo CD
     server: https://supervisors-3hfs9ocb.hcp.eastus.azmk8s.io:443
     namespace: default
   syncPolicy:
